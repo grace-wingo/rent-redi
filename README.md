@@ -15,7 +15,7 @@ To get started with the project, you'll need to have `Node.js` installed. Then f
 ### Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone 
 cd rent-redi
 npm install
 

@@ -76,8 +76,6 @@ describe("API Functions", () => {
         } catch (e) {
             error = e;
         }
-
-        // Assert the error outside the try-catch block
         expect(error).toBeDefined();
         expect(error.message).toBe("Failed to delete user");
     });

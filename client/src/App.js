@@ -29,7 +29,6 @@ function App() {
 
     // Handle form submission to create a new user or update an existing user
     const handleSubmit = async (e) => {
-        console.log("Create user result:");
         e.preventDefault();
 
         if (!/^\d{5}$/.test(zip)) {
@@ -53,7 +52,6 @@ function App() {
 
                 // Create a new user
                 const newUser = await createUser(name, zip);
-                console.log("Create user result:", newUser);
                 setUsers(prevUsers => [...prevUsers, newUser]);
             }
 

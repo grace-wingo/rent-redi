@@ -11,7 +11,6 @@ const API_KEY = process.env.OPENWEATHERMAP_API_KEY;
 
 // Create User
 router.post("/", async (req, res) => {
-  console.log('hey')
   console.log("Received request with body:", req.body);
   const { name, zip } = req.body;
 
@@ -52,7 +51,6 @@ router.post("/", async (req, res) => {
     console.error("Error creating user:", error.response?.data || error.message);
 
     if (error.response && error.response.status === 404) {
-      console.log('in here')
       return res.status(404).json({ error: `City not found for ZIP code: ${zip}` });
     }
 
@@ -95,13 +93,11 @@ router.get('/:id', async (req, res) => {
 
     console.log(`Fetching user with ID: ${userId} from Firebase.`);
 
-    // Reference to the specific user in Firebase by their ID
     const userRef = db.ref('users').child(userId);
 
     // Get the user data from Firebase
     const snapshot = await userRef.once('value');
 
-    // If no user is found, return a 404 with a message
     if (!snapshot.exists()) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -141,13 +137,11 @@ router.put('/:id', async (req, res) => {
     let newLatitude = currentUser.latitude;
     let newLongitude = currentUser.longitude;
     let newTimezone = currentUser.timezone;
-    console.log('currentUser', currentUser)
 
     if (zip !== currentUser.zip) {
       // Fetch new location data from the weather API
       const url = `https://api.openweathermap.org/data/2.5/weather?zip=${zip},US&appid=${API_KEY}`;
       const response = await axios.get(url);
-      console.log(response)
 
       const { lat, lon } = response.data.coord;
       const timezone = response.data.timezone;
@@ -187,7 +181,6 @@ router.delete('/:id', async (req, res) => {
     const userId = req.params.id;
     console.log(`Deleting user with ID: ${userId} from Firebase.`);
 
-    // Reference to the specific user in Firebase by their ID
     const userRef = db.ref('users').child(userId);
 
     // Delete the user data from Firebase

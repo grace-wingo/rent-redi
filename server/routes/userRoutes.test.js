@@ -34,21 +34,15 @@ describe('User API', () => {
       },
     });
 
-    // Mock Firebase's push() and set() methods
-    const mockSet = jest.fn().mockResolvedValue('success'); // Mock set()
-    const mockPush = jest.fn().mockReturnValue({ set: mockSet }); // Mock push() to return an object with set()
+    const mockSet = jest.fn().mockResolvedValue('success'); 
+    const mockPush = jest.fn().mockReturnValue({ set: mockSet }); 
 
-    // Mock the db.ref() to return an object with push() and set()
     db.ref = jest.fn().mockReturnValue({ push: mockPush });
 
     const response = await request(app)
       .post('/users')
       .send({ name: mockUser.name, zip: mockUser.zip });
 
-    // Check the response
-    console.log(response.status, response.body);
-
-    // Assert that the response status is 201
     expect(response.status).toBe(201);
     expect(response.body).toMatchObject({
       name: mockUser.name,
@@ -115,8 +109,6 @@ describe('User API', () => {
 
   test('should get user by ID', async () => {
     const user = { id: '1', name: 'User One', zip: '12345', latitude: 40.7128, longitude: -74.0060, timezone: 'America/New_York' };
-
-    console.log("User before mock:", user);
 
     db.ref.mockReturnValue({
       child: jest.fn().mockReturnValue({

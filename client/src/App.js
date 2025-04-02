@@ -64,7 +64,6 @@ function App() {
         }
     };
 
-    // get rid of this?? 
     const handleViewUser = async (userId) => {
         setLoading(true);
         setIsEditing(false);
